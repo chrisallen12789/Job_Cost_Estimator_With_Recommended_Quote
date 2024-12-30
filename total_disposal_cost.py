@@ -1,4 +1,7 @@
 #disposal rate calculation
+from unittest import skipIf
+
+
 def disposal_rate():
     disposal_location = str(input("Will you be dumping at the Valicor in Inkster, MI or Dearborn, MI? ")).lower()
     disposal_rate_expectation = int(input("How much disposal in yards do you think will be accumulated from this job? "))
@@ -15,18 +18,21 @@ def disposal_rate():
     dearborn_total_min_expense = 0
     dearborn_total_expense = 0
 
+    if disposal_location == ["neither", "no", "none"]:
+        inkster_total_expense = 0
+
     if disposal_location == "inkster":
         if disposal_rate_expectation <= 2:
             inkster_total_min_expense = minimal_disposal_fee + dump_travel_cost
         elif disposal_rate_expectation > 2:
-            inkster_total_expense = (valicor_inkster_disposal * disposal_rate_expectation) * environmental_fee + dump_travel_cost
+            inkster_total_expense = (valicor_inkster_disposal * disposal_rate_expectation) * (1 + environmental_fee) + dump_travel_cost
         else:
             inkster_total_expense = 0
     if disposal_location == "dearborn":
         if disposal_rate_expectation <= 2:
             dearborn_total_min_expense = minimal_disposal_fee + dump_travel_cost
         elif disposal_rate_expectation > 2:
-            dearborn_total_expense = (valicor_dearborn_disposal * disposal_rate_expectation) * environmental_fee + dump_travel_cost
+            dearborn_total_expense = (valicor_dearborn_disposal * disposal_rate_expectation) * (1 + environmental_fee) + dump_travel_cost
         else:
             dearborn_total_expense = 0
     disposal_total_expense = inkster_total_min_expense + inkster_total_expense + dearborn_total_min_expense + dearborn_total_expense

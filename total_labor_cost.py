@@ -5,7 +5,7 @@ def operator_hourly_rate_includes_overtime():
     pension_cost = 12
     employee_base_cost = float(employee_hourly * fringe_rate + pension_cost)
 
-    job_hours = float(input("How many hours do you expect this job to take? "))
+    job_hours = int(input("How many hours do you expect this job to take? "))
     hours_already_worked = float(input("How many hours has this operator already worked today? "))
 
     total_hours_worked = job_hours + hours_already_worked
