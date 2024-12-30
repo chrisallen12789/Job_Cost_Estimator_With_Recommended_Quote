@@ -4,7 +4,7 @@ def operator_hourly_rate_includes_overtime():
     fringe_rate = 1.38
     pension_cost = 12
     employee_base_cost = float(employee_hourly * fringe_rate + pension_cost)
-
+    straight_time = 0
     job_hours = int(input("How many hours do you expect this job to take? "))
     hours_already_worked = float(input("How many hours has this operator already worked today? "))
 
@@ -12,16 +12,19 @@ def operator_hourly_rate_includes_overtime():
 
     time_and_half = 0
     double_time = 0
-
-    if total_hours_worked <= 8:
-        straight_time = total_hours_worked * employee_base_cost
-    elif total_hours_worked <= 10:
-        straight_time = (8 * employee_base_cost)
-        time_and_half = (total_hours_worked - 8) * employee_base_cost
-    else:
-        straight_time = (8 * employee_base_cost)
-        time_and_half = (2 * employee_base_cost) * 1.5
-        double_time = ((total_hours_worked - 10) * employee_base_cost) * 2.0
+    while total_hours_worked > 0:
+        try:
+            if total_hours_worked <= 8:
+                straight_time = total_hours_worked * employee_base_cost
+            elif total_hours_worked <= 10:
+                straight_time = (8 * employee_base_cost)
+                time_and_half = (total_hours_worked - 8) * employee_base_cost
+            elif total_hours_worked > 10:
+                straight_time = (8 * employee_base_cost)
+                time_and_half = (2 * employee_base_cost) * 1.5
+                double_time = ((total_hours_worked - 10) * employee_base_cost) * 2.0
+        except ValueError:
+            print("Please enter a whole number.")
 
     operator_overhead = float(straight_time + time_and_half + double_time)
     return operator_overhead
