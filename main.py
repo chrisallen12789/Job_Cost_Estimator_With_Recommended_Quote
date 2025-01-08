@@ -7,17 +7,17 @@ Enjoy and please feel free to email any
 comments to me at Clane@Benkari.Net.
       """)
 
-from total_labor_cost import operator_hourly_rate_includes_overtime, laborer_cost
+from total_labor_cost import *
 from total_vac_cost import *
-from misc_expense import equipment_special_tool_expense
-from total_disposal_cost import disposal_rate
+from misc_expense import *
+from total_disposal_cost import *
 
-operator_overhead = operator_hourly_rate_includes_overtime()
+operators_cut = operator_hourly_rate_includes_overtime()
 total_laborer_cost = laborer_cost()
 total_vactor_cost = cost_of_vactor()
 disposal_total_expense = disposal_rate()
 special_tool_cost = equipment_special_tool_expense()
-total_overhead_expense = (operator_overhead + total_laborer_cost + total_vactor_cost +
+total_overhead_expense = (operators_cut + total_laborer_cost + total_vactor_cost +
                           disposal_total_expense + special_tool_cost)
 
 quote_recommendation = total_overhead_expense * 1.5
@@ -32,7 +32,7 @@ print(f"""
    Profit Total:: {profit_total}
    Hourly Profit:: {hourly_profit_total}
     
-    Operator = {operator_overhead}
+    Operator = {operators_cut}
     
     Laborer(s) = {total_laborer_cost}
     

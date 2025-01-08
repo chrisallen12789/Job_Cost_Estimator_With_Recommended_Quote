@@ -1,33 +1,32 @@
+
 def operator_hourly_rate_includes_overtime():
 
     employee_hourly = float(input("What is the hourly rate of the operator for this job? "))
     fringe_rate = 1.38
     pension_cost = 12
     employee_base_cost = float(employee_hourly * fringe_rate + pension_cost)
-    straight_time = 0
     job_hours = int(input("How many hours do you expect this job to take? "))
     hours_already_worked = float(input("How many hours has this operator already worked today? "))
 
     total_hours_worked = job_hours + hours_already_worked
+    if not isinstance(total_hours_worked, int):
+        print("Please enter a whole number.")
 
-    time_and_half = 0
-    double_time = 0
-    while total_hours_worked > 0:
-        try:
-            if total_hours_worked <= 8:
-                straight_time = total_hours_worked * employee_base_cost
-            elif total_hours_worked <= 10:
-                straight_time = (8 * employee_base_cost)
-                time_and_half = (total_hours_worked - 8) * employee_base_cost
-            elif total_hours_worked > 10:
-                straight_time = (8 * employee_base_cost)
-                time_and_half = (2 * employee_base_cost) * 1.5
-                double_time = ((total_hours_worked - 10) * employee_base_cost) * 2.0
-        except ValueError:
-            print("Please enter a whole number.")
+        if total_hours_worked <= 8:
+            straight_time = total_hours_worked * employee_base_cost
+            operators_cut = straight_time
+            return operators_cut
+        elif total_hours_worked <= 10:
+            time_and_half = (total_hours_worked - 8) * (employee_base_cost * 1.5)
+            operators_cut = time_and_half
+            return operators_cut
+        elif total_hours_worked > 10:
+            straight_time = 8 * employee_base_cost
+            time_and_half = 2 * (employee_base_cost * 1.5)
+            double_time = (total_hours_worked - 10) * (employee_base_cost * 2.0)
 
-    operator_overhead = float(straight_time + time_and_half + double_time)
-    return operator_overhead
+            operators_cut = straight_time + time_and_half + double_time
+            return operators_cut
 
 def laborer_cost():
     total_laborer_cost = 0
